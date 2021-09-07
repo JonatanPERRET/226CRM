@@ -215,7 +215,10 @@ namespace CrmBusiness
             _contactListManager = new ContactListManager();
 
             //when + then
-            Assert.Throws<RemoveContactException>(delegate { _contactListManager.Remove(_listOfContactsInitial); });
+            Assert.Throws<RemoveContactException>(delegate 
+            { 
+                _contactListManager.Remove(_listOfContactsInitial); 
+            });
         }
     }
 }

@@ -21,7 +21,7 @@ namespace CrmBusiness
         /// <param name="contacts">A list of contacts to insert in the manager</param>
         public ContactListManager(List<Contact> contacts = null)
         {
-            //TODO
+            _contacts = contacts;
         }
 
         /// <summary>
@@ -31,8 +31,7 @@ namespace CrmBusiness
         {
             get
             {
-                //TODO
-                throw new NotImplementedException();
+                return _contacts;
             }
         }
 
@@ -44,8 +43,24 @@ namespace CrmBusiness
         /// <param name="allowDuplicate">Flase = duplicate is not allowed (will be removed), True = duplicate is possible</param>
         public void Add(List<Contact> contactsToAdd, Boolean allowDuplicate=false)
         {
-            //TODO
-            throw new NotImplementedException();
+            if (_contacts == null)
+            {
+                _contacts = new List<Contact>();
+            }
+            if (!allowDuplicate)
+            {
+                foreach (Contact contact in contactsToAdd)
+                {
+                    if (!Exist(contact))
+                    {
+                        _contacts.Add(contact);
+                    }
+                }
+            }
+            else
+            {
+                _contacts.AddRange(contactsToAdd);
+            }
         }
 
         /// <summary>
@@ -54,16 +69,31 @@ namespace CrmBusiness
         /// <param name="contacts"></param>
         public void Remove(List<Contact> contactsToRemove)
         {
-            //TODO
-            throw new NotImplementedException();
+            foreach (Contact contact in contactsToRemove)
+            {
+                try
+                {
+                    _contacts.Remove(contact);
+                }
+                catch
+                {
+                    throw new RemoveContactException();
+                }
+            }
         }
         #endregion public methods
 
         #region private methods
         private bool Exist(Contact contactToFind)
         {
-            //TODO
-            throw new NotImplementedException();
+            foreach (Contact contact in _contacts)
+            {
+                if(contact.Email == contactToFind.Email)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         #endregion private methods
 
