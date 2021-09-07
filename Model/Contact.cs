@@ -30,7 +30,21 @@ namespace CrmBusiness
         #region public methods
         public Contact(string name, string firstname, DateTime dateOfBirth, string nationality, string email, string pathToImg = "/")
         {
-            //TODO
+            _name = name;
+            _firstname = firstname;
+            _dateOfBirth = dateOfBirth;
+            _nationality = nationality;
+            if (CheckEmailFormat(email))
+            {
+                _email = email;
+            }
+            else
+            {
+                throw new InvalideEmailValueException();
+            }
+            _pathToImg = pathToImg;
+            _creationDate = DateTime.Now;
+            _lastUpdate = DateTime.Now;
         }
 
         /// <summary>
@@ -40,8 +54,7 @@ namespace CrmBusiness
         {
             get
             {
-                //TODO
-                throw new NotImplementedException();
+                return _name;
             }
         }
 
@@ -52,8 +65,7 @@ namespace CrmBusiness
         {
             get
             {
-                //TODO
-                throw new NotImplementedException();
+                return _firstname;
             }
         }
 
@@ -64,8 +76,7 @@ namespace CrmBusiness
         {
             get
             {
-                //TODO
-                throw new NotImplementedException();
+                return _dateOfBirth;
             }
         }
 
@@ -76,8 +87,7 @@ namespace CrmBusiness
         {
             get
             {
-                //TODO
-                throw new NotImplementedException();
+                return _nationality;
             }
         }
 
@@ -88,8 +98,7 @@ namespace CrmBusiness
         {
             get
             {
-                //TODO
-                throw new NotImplementedException();
+                return _email;
             }
         }
 
@@ -102,13 +111,12 @@ namespace CrmBusiness
         {
             get
             {
-                //TODO
-                throw new NotImplementedException();
+                return _pathToImg;
             }
             set
             {
-                //TODO
-                throw new NotImplementedException();
+                _pathToImg = value;
+                UpdateLastUpdate();
             }
         }
 
@@ -119,8 +127,7 @@ namespace CrmBusiness
         {
             get
             {
-                //TODO
-                throw new NotImplementedException();
+                return _creationDate;
             }
         }
 
@@ -132,8 +139,7 @@ namespace CrmBusiness
         {
             get
             {
-                //TODO
-                throw new NotImplementedException();
+                return _lastUpdate;
             }
         }
         #endregion public methods
@@ -141,9 +147,17 @@ namespace CrmBusiness
         #region private methods
         private void UpdateLastUpdate()
         {
-            //TODO
-            throw new NotImplementedException();
+            _lastUpdate = DateTime.Now;
         }
+        private bool CheckEmailFormat(string email)
+        {
+            if (email.Contains("@"))
+            {
+                return true;
+            }
+            return false;
+        }
+
         #endregion private methods
     }
 }
